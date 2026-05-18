@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { register, clearError } from '../../store/slices/authSlice';
 import styles from './Auth.module.css';
 
 export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { loading, error, user } = useSelector((s) => s.auth);
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ 
+    name: '', 
+    email: location.state?.email || '', 
+    password: '' 
+  });
 
   useEffect(() => {
     if (user) navigate('/dashboard');
@@ -33,6 +38,7 @@ export default function Register() {
         <h1 className={styles.title}>Create account</h1>
         <p className={styles.subtitle}>Start managing your productivity</p>
 
+        {location.state?.msg && <div className={styles.info}>{location.state.msg}</div>}
         {error && <div className={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit} className={styles.form}>

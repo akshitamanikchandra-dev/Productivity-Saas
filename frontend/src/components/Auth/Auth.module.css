@@ -79,6 +79,16 @@
   margin-bottom: 16px;
 }
 
+.info {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
 .form {
   display: flex;
   flex-direction: column;

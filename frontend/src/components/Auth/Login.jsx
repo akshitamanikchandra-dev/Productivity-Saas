@@ -17,9 +17,20 @@ export default function Login() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(form));
+    const resultAction = await dispatch(login(form));
+    if (login.rejected.match(resultAction)) {
+      const errorMsg = resultAction.payload;
+      if (errorMsg === 'User not found') {
+        navigate('/register', { 
+          state: { 
+            email: form.email, 
+            msg: 'Email not found. Please create an account to get started!' 
+          } 
+        });
+      }
+    }
   };
 
   return (

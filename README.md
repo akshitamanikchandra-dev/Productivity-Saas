@@ -140,34 +140,38 @@ npm run dev
 
 ## 🌐 Deployment
 
-### Backend → Render.com
+### Backend → Render.com (Web Service)
 
-1. Go to [render.com](https://render.com) → New Web Service
-2. Connect your GitHub repo
-3. Settings:
+1. Go to [render.com](https://render.com) and click **New** → **Web Service**.
+2. Connect your GitHub repository **Productivity-Saas**.
+3. Configure the settings:
+   - **Name:** `productivity-saas-backend`
    - **Root Directory:** `backend`
    - **Build Command:** `npm install`
    - **Start Command:** `node server.js`
-4. Add Environment Variables:
-   - `MONGO_URI` → your MongoDB Atlas URI
-   - `JWT_SECRET` → a strong random string
-   - `CLIENT_URL` → your Vercel frontend URL (after deploying)
+4. Add the following **Environment Variables**:
+   - `MONGO_URI` → `mongodb://ak:ak123@ac-ns31soa-shard-00-00.kcfozfu.mongodb.net:27017/productivity?ssl=true&authSource=admin&retryWrites=true&w=majority` (or your new Atlas URI)
+   - `JWT_SECRET` → A strong random key (e.g. `your_super_secret_jwt_key`)
+   - `CLIENT_URL` → Your Render frontend URL (e.g. `https://productivity-saas-frontend.onrender.com` - update this after deploying the frontend)
    - `NODE_ENV` → `production`
-5. Deploy → copy the URL (e.g. `https://your-app.onrender.com`)
+5. Click **Create Web Service** and copy the generated URL after deployment.
 
-### Frontend → Vercel
+### Frontend → Render.com (Static Site)
 
-1. Go to [vercel.com](https://vercel.com) → New Project
-2. Connect your GitHub repo
-3. Settings:
+1. Go to [render.com](https://render.com) and click **New** → **Static Site**.
+2. Connect your GitHub repository **Productivity-Saas**.
+3. Configure the settings:
+   - **Name:** `productivity-saas-frontend`
    - **Root Directory:** `frontend`
-   - **Framework:** Vite
-4. Add Environment Variables:
-   - `VITE_API_URL` → `https://your-app.onrender.com/api`
-   - `VITE_SOCKET_URL` → `https://your-app.onrender.com`
-5. Deploy
+   - **Build Command:** `npm install && npm run build`
+   - **Publish Directory:** `dist`
+4. Add the following **Environment Variables**:
+   - `VITE_API_URL` → Your Backend URL + `/api` (e.g. `https://productivity-saas-backend.onrender.com/api`)
+   - `VITE_SOCKET_URL` → Your Backend URL (e.g. `https://productivity-saas-backend.onrender.com`)
+5. Click **Create Static Site**!
 
-> ⚠️ After deploying frontend, go back to Render and update `CLIENT_URL` to your Vercel URL.
+> ⚠️ **Important:** Once your frontend static site is deployed, make sure to copy its URL, go back to your backend Web Service settings on Render, and update the `CLIENT_URL` variable to this new Render frontend URL.
+
 
 ---
 

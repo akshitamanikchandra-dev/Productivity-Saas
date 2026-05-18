@@ -66,7 +66,6 @@ productivity-saas/
     │   └── index.css
     ├── index.html
     ├── vite.config.js
-    └── vercel.json
 ```
 
 ---
